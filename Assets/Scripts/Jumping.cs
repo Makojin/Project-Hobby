@@ -6,11 +6,11 @@ public class Jumping : MonoBehaviour
 {
     Rigidbody2D rb;
 
-    public float Jumppower;
-
     public Transform GroundCheck;
     public LayerMask GroundLayer;
-    public bool isGrounded;
+
+    public float jumppower;
+    public bool grounded;
 
     private void Start()
     {
@@ -21,11 +21,11 @@ public class Jumping : MonoBehaviour
     {
         checker();
 
-        isGrounded = Physics2D.OverlapCapsule(GroundCheck.position,new Vector2(1f,0.1f),CapsuleDirection2D.Horizontal, 0, GroundLayer);
+        grounded = Physics2D.OverlapCapsule(GroundCheck.position,new Vector2(1f,0.1f),CapsuleDirection2D.Horizontal, 0, GroundLayer);
 
-        if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
+        if (Input.GetKeyDown(KeyCode.Space) && grounded)
         {
-            rb.velocity = new Vector2(rb.velocity.x, Jumppower);
+            rb.velocity = new Vector2(rb.velocity.x, jumppower);
         }
     }
 
@@ -37,7 +37,7 @@ public class Jumping : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.X))
         {
-            Debug.Log(isGrounded.ToString());
+            Debug.Log(grounded.ToString());
         }
     }
 }

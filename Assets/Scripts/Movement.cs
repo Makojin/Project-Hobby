@@ -8,7 +8,7 @@ public class Movement : MonoBehaviour
 
     public Jumping script_jumping;
 
-    public float Speed;
+    public float speed;
     public bool headingright;
     public bool moving;
 
@@ -22,7 +22,7 @@ public class Movement : MonoBehaviour
 
     private void Update()
     {
-        //Debug.Log(rb.velocity);
+        Debug.Log(rb.velocity);
 
         checker();
 
@@ -30,13 +30,13 @@ public class Movement : MonoBehaviour
         {
             moving = true;
             headingright = false;
-            rb.velocity = new Vector2(-Speed, rb.velocity.y);
+            rb.velocity = new Vector2(-speed, rb.velocity.y);
         }
         else if (Input.GetKey(KeyCode.D))
         {
             moving = true;
             headingright = true;
-            rb.velocity = new Vector2(+Speed, rb.velocity.y);
+            rb.velocity = new Vector2(+speed, rb.velocity.y);
         }
 
         if (Input.GetKeyUp(KeyCode.A))
@@ -48,7 +48,7 @@ public class Movement : MonoBehaviour
             moving = false;
         }
 
-        if(moving == false && script_jumping.isGrounded == true)
+        if(moving == false && script_jumping.grounded == true)
         {
             rb.velocity = new Vector2(0f, rb.velocity.y);
         }

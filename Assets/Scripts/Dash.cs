@@ -4,14 +4,20 @@ using UnityEngine;
 
 public class Dash : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    Rigidbody2D rb;
+
+    public float dashspeed;
+
+    private void Start()
+    {
+        rb = GetComponent<Rigidbody2D>();
+    }
+    private void Update()
     {
         
     }
 
-    // Update is called once per frame
-    void Update()
+    private void FixedUpdate()
     {
         
     }
