@@ -6,36 +6,51 @@ public class Movement : MonoBehaviour
 {
     Rigidbody2D rb;
 
-    Vector2 move;
+    public Jumping script_jumping;
 
-    [SerializeField] float Dash;
-    [SerializeField] float Speed;
-    bool isGrounded;
-
-    private bool headingright;
+    public float Speed;
+    public bool headingright;
+    public bool moving;
 
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
 
         headingright = true;
+        moving = false;
     }
 
     private void Update()
     {
-        Debug.Log(rb.velocity);
+        //Debug.Log(rb.velocity);
 
         checker();
 
         if (Input.GetKey(KeyCode.A))
         {
+            moving = true;
             headingright = false;
             rb.velocity = new Vector2(-Speed, rb.velocity.y);
         }
         else if (Input.GetKey(KeyCode.D))
         {
+            moving = true;
             headingright = true;
             rb.velocity = new Vector2(+Speed, rb.velocity.y);
+        }
+
+        if (Input.GetKeyUp(KeyCode.A))
+        {
+            moving = false;
+        }
+        if (Input.GetKeyUp(KeyCode.D))
+        {
+            moving = false;
+        }
+
+        if(moving == false && script_jumping.isGrounded == true)
+        {
+            rb.velocity = new Vector2(0f, rb.velocity.y);
         }
     }
 
@@ -49,18 +64,6 @@ public class Movement : MonoBehaviour
         if (Input.GetKey(KeyCode.Z))
         {
             Debug.Log(rb.velocity.y.ToString());
-        }
-
-        if (Input.GetKeyDown(KeyCode.F))
-        {
-            if(headingright == true)
-            {
-                rb.velocity = new Vector2(+Speed * Dash, rb.velocity.y);
-            }
-            else
-            {
-                rb.velocity = new Vector2(-Speed * Dash, rb.velocity.y);
-            }
         }
     }
 }

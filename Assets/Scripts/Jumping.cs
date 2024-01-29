@@ -6,11 +6,11 @@ public class Jumping : MonoBehaviour
 {
     Rigidbody2D rb;
 
-    [SerializeField] int Jumppower;
+    public float Jumppower;
 
     public Transform GroundCheck;
     public LayerMask GroundLayer;
-    bool isGrounded;
+    public bool isGrounded;
 
     private void Start()
     {
