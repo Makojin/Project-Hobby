@@ -4,12 +4,19 @@ using UnityEngine;
 
 public class test : MonoBehaviour
 {
-    private void OnTriggerEnter(Collider other)
+    public Rigidbody2D rb;
+
+    public Movement script_movement;
+    public Dash script_dash;
+
+    private void Start()
     {
-        Debug.Log("hit3d");
+        
     }
-    private void OnTriggerEnter2D(Collider2D collision)
+
+    private void OnTriggerStay2D(Collider2D collision)
     {
-        Debug.Log("hit");
+        rb.velocity = new Vector2(0f, rb.velocity.y);
+        script_dash.dashing = false;
     }
 }
