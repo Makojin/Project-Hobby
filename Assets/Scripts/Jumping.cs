@@ -19,8 +19,6 @@ public class Jumping : MonoBehaviour
 
     private void Update()
     {
-        checker();
-
         grounded = Physics2D.OverlapCapsule(GroundCheck.position,new Vector2(1f,0.1f),CapsuleDirection2D.Horizontal, 0, GroundLayer);
 
         if (Input.GetKeyDown(KeyCode.Space) && grounded)
@@ -32,12 +30,5 @@ public class Jumping : MonoBehaviour
     private void FixedUpdate()
     {
         
-    }
-    private void checker()
-    {
-        if (Input.GetKey(KeyCode.X))
-        {
-            Debug.Log(grounded.ToString());
-        }
     }
 }
