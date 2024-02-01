@@ -11,6 +11,7 @@ public class Dash : MonoBehaviour
 
     public float dashspeed;
     public float dashcd;
+    public float dashcdlength;
     public float dashlength;
     public bool dashing;
 
@@ -34,8 +35,9 @@ public class Dash : MonoBehaviour
 
     private void dashmethod()
     {
-        if (Input.GetKeyDown(KeyCode.LeftShift))
+        if (Input.GetKeyDown(KeyCode.LeftShift) && dashcd == Mathf.Round(0f))
         {
+            dashcd = dashcdlength;
             currentlocation = rb.position.x;
             dashing = true;
             script_movement.moving = true;
@@ -59,6 +61,16 @@ public class Dash : MonoBehaviour
         {
             rb.velocity = new Vector2(0f, rb.velocity.y);
             dashing = false;
+        }
+
+        if(dashcd != Mathf.Round(0f))
+        {
+            dashcd -= Time.deltaTime;
+
+            if(dashcd <= 0f)
+            {
+                dashcd = 0f;
+            }
         }
     }
 }
