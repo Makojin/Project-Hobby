@@ -412,6 +412,7 @@ GameObject:
   - component: {fileID: 909827912}
   - component: {fileID: 909827911}
   - component: {fileID: 909827914}
+  - component: {fileID: 909827915}
   - component: {fileID: 909827910}
   - component: {fileID: 909827909}
   - component: {fileID: 909827913}
@@ -597,9 +598,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   script_jumping: {fileID: 909827911}
   script_dash: {fileID: 909827914}
-  speed: 10
+  script_knockback: {fileID: 909827915}
   headingright: 0
   moving: 0
+  speed: 10
 --- !u!96 &909827913
 TrailRenderer:
   serializedVersion: 3
@@ -729,9 +731,27 @@ MonoBehaviour:
   script_jumping: {fileID: 909827911}
   dashspeed: 100
   dashcd: 0
-  dashcdlength: 1
+  dashcdlength: 0.5
   dashlength: 3
   dashing: 0
+--- !u!114 &909827915
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 909827906}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c763ce20375e7d24fad7092671749552, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  friction: {fileID: 0}
+  script_movement: {fileID: 909827912}
+  knockbackduration: 0
+  knockbackdurationlength: 0.5
+  knockbackrange: 5
+  knockbacking: 0
 --- !u!1 &922780936
 GameObject:
   m_ObjectHideFlags: 0

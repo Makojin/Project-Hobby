@@ -35,7 +35,7 @@ public class Dash : MonoBehaviour
 
     private void dashmethod()
     {
-        if (Input.GetKeyDown(KeyCode.LeftShift) && dashcd == Mathf.Round(0f))
+        if (Input.GetKeyDown(KeyCode.LeftShift) && dashcd == 0f)
         {
             dashcd = dashcdlength;
             currentlocation = rb.position.x;
@@ -63,7 +63,7 @@ public class Dash : MonoBehaviour
             dashing = false;
         }
 
-        if(dashcd != Mathf.Round(0f))
+        if(dashcd != 0f)
         {
             dashcd -= Time.deltaTime;
 

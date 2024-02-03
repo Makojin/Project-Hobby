@@ -8,10 +8,11 @@ public class Movement : MonoBehaviour
 
     public Jumping script_jumping;
     public Dash script_dash;
+    public KnockBack script_knockback;
 
-    public float speed;
     public bool headingright;
     public bool moving;
+    public float speed;
 
     private void Start()
     {
@@ -24,34 +25,7 @@ public class Movement : MonoBehaviour
     private void Update()
     {
         checker();
-        //movementmethod();
-
-        if (Input.GetKey(KeyCode.A) && script_dash.dashing == false)
-        {
-            moving = true;
-            headingright = false;
-            rb.velocity = new Vector2(-speed, rb.velocity.y);
-        }
-        else if (Input.GetKey(KeyCode.D) && script_dash.dashing == false)
-        {
-            moving = true;
-            headingright = true;
-            rb.velocity = new Vector2(+speed, rb.velocity.y);
-        }
-
-        if (Input.GetKeyUp(KeyCode.A))
-        {
-            moving = false;
-        }
-        if (Input.GetKeyUp(KeyCode.D))
-        {
-            moving = false;
-        }
-
-        if (moving == false && script_jumping.grounded == true)
-        {
-            rb.velocity = new Vector2(0f, rb.velocity.y);
-        }
+        movementmethod();
     }
 
     private void FixedUpdate()
@@ -61,13 +35,13 @@ public class Movement : MonoBehaviour
 
     private void movementmethod()
     {
-        if (Input.GetKey(KeyCode.A) && script_dash.dashing == false)
+        if (Input.GetKey(KeyCode.A) && script_dash.dashing == false && script_knockback.knockbacking == false)
         {
             moving = true;
             headingright = false;
             rb.velocity = new Vector2(-speed, rb.velocity.y);
         }
-        else if (Input.GetKey(KeyCode.D) && script_dash.dashing == false)
+        else if (Input.GetKey(KeyCode.D) && script_dash.dashing == false && script_knockback.knockbacking == false)
         {
             moving = true;
             headingright = true;
@@ -83,7 +57,7 @@ public class Movement : MonoBehaviour
             moving = false;
         }
 
-        if (moving == false && script_jumping.grounded == true)
+        if (moving == false && script_jumping.grounded == true && script_knockback.knockbacking == false)
         {
             rb.velocity = new Vector2(0f, rb.velocity.y);
         }
