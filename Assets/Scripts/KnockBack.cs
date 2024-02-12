@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class KnockBack : MonoBehaviour
 {
-    Rigidbody2D rb;
-
-    public FrictionJoint2D friction;
+    public Rigidbody2D rb;
 
     public Movement script_movement;
+    public Jumping script_jumping;
+    public Dash script_dash;
 
     public float knockbackduration;
     public float knockbackdurationlength;
@@ -17,8 +17,6 @@ public class KnockBack : MonoBehaviour
 
     void Start()
     {
-        rb = GetComponent<Rigidbody2D>();
-
         knockbacking = false;
     }
 
@@ -26,34 +24,84 @@ public class KnockBack : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.B) && knockbackduration == 0f)
         {
-            if(script_movement.headingright == true)
-            {
-                knockbackduration = knockbackdurationlength;
-                knockbacking = true;
-                rb.velocity = new Vector2(-knockbackrange, rb.velocity.y);
-            }
-            else
-            {
-                knockbackduration = knockbackdurationlength;
-                knockbacking = true;
-                rb.velocity = new Vector2(+knockbackrange, rb.velocity.y);
-            }
+            knocked();
         }
+
+        Debug.Log(this.transform.position.x);
 
         if (knockbackduration != 0f)
         {
             knockbackduration -= Time.deltaTime;
 
-            if(knockbackduration <= 0)
+            if (knockbackduration <= 0)
             {
+                script_dash.dashing = false;
+                script_dash.dashingallowed = true;
+                script_jumping.jumpingallowed = true;
+
                 knockbackduration = 0;
+
                 knockbacking = false;
             }
         }
     }
 
-    private void knocked()
+    /*public void knocked()
     {
+        knockbacking = false;
 
+        if (script_movement.headingright == true)
+        {
+            script_dash.dashingallowed = false;
+            script_jumping.jumpingallowed = false;
+
+            knockbackduration = knockbackdurationlength;
+
+            knockbacking = true;
+
+            rb.velocity = new Vector2(-knockbackrange, knockbackrange/2);
+        }
+        else
+        {
+            script_dash.dashingallowed = false;
+            script_jumping.jumpingallowed = false;
+
+            knockbackduration = knockbackdurationlength;
+
+            knockbacking = true;
+
+            rb.velocity = new Vector2(+knockbackrange, knockbackrange/2);
+        }
+    }*/
+
+    public void knocked()
+    {
+        knockbacking = false;
+
+        //if (script_movement.headingright == true)
+        if(this.transform.position.x >= rb.transform.position.x)
+        {
+            script_dash.dashingallowed = false;
+            script_jumping.jumpingallowed = false;
+
+            knockbackduration = knockbackdurationlength;
+
+            knockbacking = true;
+
+            rb.velocity = new Vector2(-knockbackrange, knockbackrange / 2);
+        }
+        else
+        {
+            script_dash.dashingallowed = false;
+            script_jumping.jumpingallowed = false;
+
+            knockbackduration = knockbackdurationlength;
+
+            knockbacking = true;
+
+            rb.velocity = new Vector2(+knockbackrange, knockbackrange / 2);
+        }
     }
 }
+    
+

@@ -11,24 +11,22 @@ public class Jumping : MonoBehaviour
 
     public float jumppower;
     public bool grounded;
+    public bool jumpingallowed;
 
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+
+        jumpingallowed = true;
     }
 
     private void Update()
     {
         grounded = Physics2D.OverlapCapsule(GroundCheck.position,new Vector2(1f,0.1f),CapsuleDirection2D.Horizontal, 0, GroundLayer);
 
-        if (Input.GetKeyDown(KeyCode.Space) && grounded)
+        if (Input.GetKeyDown(KeyCode.Space) && grounded && jumpingallowed == true)
         {
             rb.velocity = new Vector2(rb.velocity.x, jumppower);
         }
-    }
-
-    private void FixedUpdate()
-    {
-        
     }
 }

@@ -28,23 +28,20 @@ public class Movement : MonoBehaviour
         movementmethod();
     }
 
-    private void FixedUpdate()
-    {
-
-    }
-
     private void movementmethod()
     {
         if (Input.GetKey(KeyCode.A) && script_dash.dashing == false && script_knockback.knockbacking == false)
         {
             moving = true;
             headingright = false;
+
             rb.velocity = new Vector2(-speed, rb.velocity.y);
         }
         else if (Input.GetKey(KeyCode.D) && script_dash.dashing == false && script_knockback.knockbacking == false)
         {
             moving = true;
             headingright = true;
+
             rb.velocity = new Vector2(+speed, rb.velocity.y);
         }
 
