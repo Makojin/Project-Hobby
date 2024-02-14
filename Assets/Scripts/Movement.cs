@@ -8,8 +8,8 @@ public class Movement : MonoBehaviour
 
     public Jumping script_jumping;
     public Dash script_dash;
-    public KnockBack script_knockback;
 
+    public bool knockbacking;
     public bool headingright;
     public bool moving;
     public float speed;
@@ -30,14 +30,14 @@ public class Movement : MonoBehaviour
 
     private void movementmethod()
     {
-        if (Input.GetKey(KeyCode.A) && script_dash.dashing == false && script_knockback.knockbacking == false)
+        if (Input.GetKey(KeyCode.A) && script_dash.dashing == false && knockbacking == false)
         {
             moving = true;
             headingright = false;
 
             rb.velocity = new Vector2(-speed, rb.velocity.y);
         }
-        else if (Input.GetKey(KeyCode.D) && script_dash.dashing == false && script_knockback.knockbacking == false)
+        else if (Input.GetKey(KeyCode.D) && script_dash.dashing == false && knockbacking == false)
         {
             moving = true;
             headingright = true;
@@ -54,7 +54,7 @@ public class Movement : MonoBehaviour
             moving = false;
         }
 
-        if (moving == false && script_jumping.grounded == true && script_knockback.knockbacking == false)
+        if (moving == false && script_jumping.grounded == true && knockbacking == false)
         {
             rb.velocity = new Vector2(0f, rb.velocity.y);
         }

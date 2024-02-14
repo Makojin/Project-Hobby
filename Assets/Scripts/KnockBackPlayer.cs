@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class KnockBack : MonoBehaviour
+public class KnockBackPlayer : MonoBehaviour
 {
     public Rigidbody2D rb;
 
@@ -13,11 +13,10 @@ public class KnockBack : MonoBehaviour
     public float knockbackduration;
     public float knockbackdurationlength;
     public float knockbackrange;
-    public bool knockbacking;
 
     void Start()
     {
-        knockbacking = false;
+        script_movement.knockbacking = false;
     }
 
     void Update()
@@ -26,8 +25,6 @@ public class KnockBack : MonoBehaviour
         {
             knocked();
         }
-
-        Debug.Log(this.transform.position.x);
 
         if (knockbackduration != 0f)
         {
@@ -41,44 +38,15 @@ public class KnockBack : MonoBehaviour
 
                 knockbackduration = 0;
 
-                knockbacking = false;
+                script_movement.knockbacking = false;
             }
         }
     }
 
-    /*public void knocked()
-    {
-        knockbacking = false;
-
-        if (script_movement.headingright == true)
-        {
-            script_dash.dashingallowed = false;
-            script_jumping.jumpingallowed = false;
-
-            knockbackduration = knockbackdurationlength;
-
-            knockbacking = true;
-
-            rb.velocity = new Vector2(-knockbackrange, knockbackrange/2);
-        }
-        else
-        {
-            script_dash.dashingallowed = false;
-            script_jumping.jumpingallowed = false;
-
-            knockbackduration = knockbackdurationlength;
-
-            knockbacking = true;
-
-            rb.velocity = new Vector2(+knockbackrange, knockbackrange/2);
-        }
-    }*/
-
     public void knocked()
     {
-        knockbacking = false;
+        script_movement.knockbacking = false;
 
-        //if (script_movement.headingright == true)
         if(this.transform.position.x >= rb.transform.position.x)
         {
             script_dash.dashingallowed = false;
@@ -86,7 +54,7 @@ public class KnockBack : MonoBehaviour
 
             knockbackduration = knockbackdurationlength;
 
-            knockbacking = true;
+            script_movement.knockbacking = true;
 
             rb.velocity = new Vector2(-knockbackrange, knockbackrange / 2);
         }
@@ -97,7 +65,7 @@ public class KnockBack : MonoBehaviour
 
             knockbackduration = knockbackdurationlength;
 
-            knockbacking = true;
+            script_movement.knockbacking = true;
 
             rb.velocity = new Vector2(+knockbackrange, knockbackrange / 2);
         }
