@@ -10,6 +10,7 @@ public class Jumping : MonoBehaviour
     public LayerMask GroundLayer;
 
     public float jumppower;
+
     public bool grounded;
     public bool jumpingallowed;
 

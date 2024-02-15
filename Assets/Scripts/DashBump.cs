@@ -19,8 +19,6 @@ public class DashBump : MonoBehaviour
             script_dash.dashing = false;
 
             sp.color = new Color(255, 0, 0, 255);
-
-            Debug.Log("hit");
         }
     }
 

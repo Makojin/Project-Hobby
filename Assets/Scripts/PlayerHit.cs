@@ -4,11 +4,12 @@ using UnityEngine;
 
 public class PlayerHit : MonoBehaviour
 {
-    public KnockBackPlayer script_knockback;
-
     public SpriteRenderer sp;
 
     public Rigidbody2D rbplayer;
+
+    public KnockBackPlayer script_knockback;
+
 
     public float colorduration;
     public float colortimer;

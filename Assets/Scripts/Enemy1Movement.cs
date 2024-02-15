@@ -6,6 +6,12 @@ public class Enemy1Movement : MonoBehaviour
 {
     Rigidbody2D rb;
 
+    public CircleCollider2D aggro;
+    public CircleCollider2D aggroexit;
+
+    public GameObject foot;
+    public GameObject playerhitcollision;
+
     public float patrolspeed;
     public float patrolrange;
     public float randomizertimer;
@@ -17,13 +23,19 @@ public class Enemy1Movement : MonoBehaviour
     public float randomizertimerholder;
     public float randomizer;
 
+    public bool aggroed;
 
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
 
         startingpoint = rb.position.x;
+
         randomizertimerholder = randomizertimer;
+
+        aggroed = false;
+
+        aggroexit.enabled = false;
 
         if (Random.Range(0, 2) == 0)
         {
@@ -37,41 +49,55 @@ public class Enemy1Movement : MonoBehaviour
 
     private void Update()
     {
-        randomizertimerholder -= Time.deltaTime;
-
-        if(randomizertimerholder < 0)
+        if (aggroed == true)
         {
-            Debug.Log("behaviour change");
-            randomizer = Random.Range(0,3);
 
-            randomizertimerholder = randomizertimer;
-
-            lookswitch = true;
-        }
-
-        if(randomizer == 0)
-        {
-            rb.velocity = new Vector2(0f,0f);
-        }
-        else if(randomizer == 1)
-        {
-            if(lookingright == true && lookswitch == true)
+            if (playerhitcollision.transform.position.x <= this.transform.position.x)
             {
-                lookingright = false;
-
-                lookswitch = false;
+                rb.velocity = new Vector2(-patrolspeed, rb.velocity.y);
             }
-            else if(lookingright == false && lookswitch == true)
+            else
             {
-                lookingright = true;
-
-                lookswitch = false;
+                rb.velocity = new Vector2(patrolspeed, rb.velocity.y);
             }
-            move();
         }
-        else if (randomizer == 2)
+        else
         {
-            move();
+            randomizertimerholder -= Time.deltaTime;
+
+            if (randomizertimerholder < 0)
+            {
+                randomizer = Random.Range(0, 3);
+
+                randomizertimerholder = randomizertimer;
+
+                lookswitch = true;
+            }
+
+            if (randomizer == 0)
+            {
+                rb.velocity = new Vector2(0f, rb.velocity.y);
+            }
+            else if (randomizer == 1)
+            {
+                if (lookingright == true && lookswitch == true)
+                {
+                    lookingright = false;
+
+                    lookswitch = false;
+                }
+                else if (lookingright == false && lookswitch == true)
+                {
+                    lookingright = true;
+
+                    lookswitch = false;
+                }
+                move();
+            }
+            else if (randomizer == 2)
+            {
+                move();
+            }
         }
     }
 
@@ -79,7 +105,7 @@ public class Enemy1Movement : MonoBehaviour
     {
         if (lookingright == true)
         {
-            rb.velocity = new Vector2(patrolspeed, 0f);
+            rb.velocity = new Vector2(patrolspeed, rb.velocity.y);
 
             if (startingpoint + patrolrange <= rb.position.x)
             {
@@ -88,7 +114,7 @@ public class Enemy1Movement : MonoBehaviour
         }
         else
         {
-            rb.velocity = new Vector2(-patrolspeed, 0f);
+            rb.velocity = new Vector2(-patrolspeed, rb.velocity.y);
 
             if (startingpoint + -patrolrange >= rb.position.x)
             {
@@ -97,8 +123,25 @@ public class Enemy1Movement : MonoBehaviour
         }
     }
 
-    private void turnaround()
+    private void OnTriggerStay2D(Collider2D collision)
     {
+        if(collision.gameObject.tag == "Player" && foot.transform.position.y < playerhitcollision.transform.position.y)
+        {
+            aggroed = true;
 
+            aggro.enabled = false;
+            aggroexit.enabled = true;
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Player")
+        {
+            aggroed = false;
+
+            aggro.enabled = true;
+            aggroexit.enabled = false;
+        }
     }
 }

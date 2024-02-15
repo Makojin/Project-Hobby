@@ -13,12 +13,14 @@ public class Dash : MonoBehaviour
 
     public float trailsdurationtimer;
     public float trailsduration;
+
     public bool trailsenabled;
 
     public float dashcd;
     public float dashspeed;
     public float dashcdlength;
     public float dashlength;
+
     public bool dashing;
     public bool dashingallowed;
 
@@ -47,6 +49,7 @@ public class Dash : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.LeftShift) && dashcd == 0f && dashingallowed == true)
         {
             trailsdurationtimer = trailsduration;
+
             trailsenabled = true;
 
             dashcd = dashcdlength;
