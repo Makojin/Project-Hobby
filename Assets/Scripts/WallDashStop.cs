@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DashBump : MonoBehaviour
+public class WallDashStop : MonoBehaviour
 {
     public Rigidbody2D rb;
     public SpriteRenderer sp;

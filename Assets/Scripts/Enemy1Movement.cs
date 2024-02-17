@@ -6,10 +6,6 @@ public class Enemy1Movement : MonoBehaviour
 {
     Rigidbody2D rb;
 
-    public CircleCollider2D aggro;
-    public CircleCollider2D aggroexit;
-
-    public GameObject foot;
     public GameObject playerhitcollision;
 
     public float patrolspeed;
@@ -33,10 +29,6 @@ public class Enemy1Movement : MonoBehaviour
 
         randomizertimerholder = randomizertimer;
 
-        aggroed = false;
-
-        aggroexit.enabled = false;
-
         if (Random.Range(0, 2) == 0)
         {
             lookingright = true;
@@ -51,7 +43,6 @@ public class Enemy1Movement : MonoBehaviour
     {
         if (aggroed == true)
         {
-
             if (playerhitcollision.transform.position.x <= this.transform.position.x)
             {
                 rb.velocity = new Vector2(-patrolspeed, rb.velocity.y);
@@ -120,28 +111,6 @@ public class Enemy1Movement : MonoBehaviour
             {
                 lookingright = true;
             }
-        }
-    }
-
-    private void OnTriggerStay2D(Collider2D collision)
-    {
-        if(collision.gameObject.tag == "Player" && foot.transform.position.y < playerhitcollision.transform.position.y)
-        {
-            aggroed = true;
-
-            aggro.enabled = false;
-            aggroexit.enabled = true;
-        }
-    }
-
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.gameObject.tag == "Player")
-        {
-            aggroed = false;
-
-            aggro.enabled = true;
-            aggroexit.enabled = false;
         }
     }
 }

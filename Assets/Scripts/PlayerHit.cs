@@ -4,66 +4,22 @@ using UnityEngine;
 
 public class PlayerHit : MonoBehaviour
 {
-    public SpriteRenderer sp;
-
-    public Rigidbody2D rbplayer;
-
     public KnockBackPlayer script_knockback;
 
-
-    public float colorduration;
-    public float colortimer;
-    public float colorduration2;
-    public float colortimer2;
-
-    private bool hitswitch;
     private bool insidedanger;
 
     private void Start()
     {
-        colortimer = colorduration;
-        colortimer2 = colorduration2;
     }
 
     private void Update()
     {
-        colorchange();
-
-        if(insidedanger == true && hitswitch == true)
+        if(insidedanger == true)
         {
             script_knockback.knocked();
         }
     }
 
-    private void colorchange()
-    {
-        if (colortimer != 0)
-        {
-            sp.color = new Color(0, 255, 0, 100);
-
-            hitswitch = false;
-
-            colortimer -= Time.deltaTime;
-
-            if (colortimer <= 0)
-            {
-                if (colortimer2 != 0)
-                {
-                    sp.color = new Color(255, 0, 0, 100);
-
-                    hitswitch = true;
-
-                    colortimer2 -= Time.deltaTime;
-
-                    if (colortimer2 <= 0)
-                    {
-                        colortimer = colorduration;
-                        colortimer2 = colorduration2;
-                    }
-                }
-            }
-        }
-    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {

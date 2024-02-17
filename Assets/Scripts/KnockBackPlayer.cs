@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class KnockBackPlayer : MonoBehaviour
 {
-    public Rigidbody2D rb;
+    public Rigidbody2D playerrb;
 
     public Movement script_movement;
     public Jumping script_jumping;
     public Dash script_dash;
 
-    public float knockbackduration;
-    public float knockbackdurationlength;
     public float knockbackrange;
+    public float knockbackdurationlength;
+    public float knockbackduration;
 
     void Start()
     {
@@ -21,11 +21,6 @@ public class KnockBackPlayer : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.B) && knockbackduration == 0f)
-        {
-            knocked();
-        }
-
         if (knockbackduration != 0f)
         {
             knockbackduration -= Time.deltaTime;
@@ -47,27 +42,25 @@ public class KnockBackPlayer : MonoBehaviour
     {
         script_movement.knockbacking = false;
 
-        if(this.transform.position.x >= rb.transform.position.x)
+        if(this.transform.position.x >= playerrb.transform.position.x)
         {
             script_dash.dashingallowed = false;
             script_jumping.jumpingallowed = false;
+            script_movement.knockbacking = true;
 
             knockbackduration = knockbackdurationlength;
 
-            script_movement.knockbacking = true;
-
-            rb.velocity = new Vector2(-knockbackrange, knockbackrange / 2);
+            playerrb.velocity = new Vector2(-knockbackrange, knockbackrange / 2);
         }
         else
         {
             script_dash.dashingallowed = false;
             script_jumping.jumpingallowed = false;
+            script_movement.knockbacking = true;
 
             knockbackduration = knockbackdurationlength;
 
-            script_movement.knockbacking = true;
-
-            rb.velocity = new Vector2(+knockbackrange, knockbackrange / 2);
+            playerrb.velocity = new Vector2(+knockbackrange, knockbackrange / 2);
         }
     }
 }

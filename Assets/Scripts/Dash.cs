@@ -18,8 +18,8 @@ public class Dash : MonoBehaviour
 
     public float dashcd;
     public float dashspeed;
-    public float dashcdlength;
     public float dashlength;
+    public float dashcdlength;
 
     public bool dashing;
     public bool dashingallowed;

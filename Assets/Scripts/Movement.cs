@@ -24,7 +24,6 @@ public class Movement : MonoBehaviour
 
     private void Update()
     {
-        checker();
         movementmethod();
     }
 
@@ -57,14 +56,6 @@ public class Movement : MonoBehaviour
         if (moving == false && script_jumping.grounded == true && knockbacking == false)
         {
             rb.velocity = new Vector2(0f, rb.velocity.y);
-        }
-    }
-
-    private void checker()
-    {
-        if (Input.GetKey(KeyCode.Z))
-        {
-            Debug.Log(rb.velocity.y.ToString());
         }
     }
 }
